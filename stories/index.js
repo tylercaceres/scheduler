@@ -96,7 +96,13 @@ storiesOf('InterviewerList', module)
 	.addParameters({
 		backgrounds: [{name: 'dark', value: '#222f3e', default: true}]
 	})
-	.add('Initial', () => <InterviewerList interviewers={interviewers} setInterviewer={action('setInterviewer')} />)
+	.add('Initial', () => (
+		<InterviewerList interviewers={interviewers} setInterviewer={(event) => action('setInterviewer')(interviewer.id)} />
+	))
 	.add('Preselected', () => (
-		<InterviewerList interviewers={interviewers} interviewer={3} setInterviewer={action('setInterviewer')} />
+		<InterviewerList
+			interviewers={interviewers}
+			interviewer={3}
+			onChange={() => action('setInterviewer')(interviewer.id)}
+		/>
 	));
