@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Button from './Button';
 import DayList from './DayList';
 import {action} from '@storybook/addon-actions';
+import InterviewList from './InterviewerList';
 
 import 'components/Application.scss';
 
@@ -25,6 +26,8 @@ const days = [
 
 export default function Application(props) {
 	const [currDay, setCurrDay] = useState('Monday');
+	const [currInterviewer, setCurrInterviewer] = useState('');
+
 	return (
 		<main className="layout">
 			<section className="sidebar">

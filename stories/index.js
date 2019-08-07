@@ -11,6 +11,8 @@ import DayList from 'components/DayList';
 import InterviewerListItem from 'components/InterviewerListItem';
 import InterviewerList from 'components/InterviewerList';
 
+import Appointment from 'components/Appointment/index';
+
 storiesOf('Button', module)
 	.addParameters({
 		backgrounds: [{name: 'dark', value: '#222f3e', default: true}]
@@ -80,7 +82,7 @@ storiesOf('InterviewerListItem', module)
 			id={interviewer.id}
 			name={interviewer.name}
 			avatar={interviewer.avatar}
-			setInterviewer={action('setInterviewer')}
+			setInterviewer={(event) => action('setInterviewer')(interviewer.id)}
 		/>
 	));
 
@@ -96,13 +98,43 @@ storiesOf('InterviewerList', module)
 	.addParameters({
 		backgrounds: [{name: 'dark', value: '#222f3e', default: true}]
 	})
-	.add('Initial', () => (
-		<InterviewerList interviewers={interviewers} setInterviewer={(event) => action('setInterviewer')(interviewer.id)} />
-	))
+	.add('Initial', () => <InterviewerList interviewers={interviewers} onChange={action('setInterviewer')} />)
 	.add('Preselected', () => (
-		<InterviewerList
-			interviewers={interviewers}
-			interviewer={3}
-			onChange={() => action('setInterviewer')(interviewer.id)}
+		<InterviewerList interviewers={interviewers} value={3} onChange={action('setInterviewer')} />
+	));
+
+const appointments = {
+	time: '12pm',
+	student: 'Lydia Miller-Jones',
+	interviewer: {id: 1, name: 'Sylvia Palmer', avatar: 'https://i.imgur.com/LpaY82x.png'}
+};
+
+storiesOf('Appointment', module)
+	.addParameters({
+		backgrounds: [{name: 'white', value: '#fff', default: true}]
+	})
+	//header
+	.add('Appointment', () => <Appointment />)
+	.add('Appointment with Time', () => <Appointment time={appointments.time} />)
+	//empty
+	.add('Appointment - Empty', () => <Appointment mode="EMPTY" onAdd={action('addAppointment')} />)
+	//show
+	.add('Appointment - Show', () => (
+		<Appointment
+			mode="SHOW"
+			student={appointments.student}
+			interviewer={appointments.interviewer}
+			onEdit={action('editAppointment')}
+			onDelete={action('deleteAppointment')}
+		/>
+	))
+	.add('Appointment - Confirm', () => (
+		<Appointment
+			mode="CONFIRM"
+			message="Delete the appointment?"
+			onConfirm={action('confirm')}
+			onCancel={action('cancel')}
 		/>
 	));
+
+// .add('No Appointments', () => <Appointment onAdd={action('addAppointment')} />);
