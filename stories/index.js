@@ -115,26 +115,55 @@ storiesOf('Appointment', module)
 	})
 	//header
 	.add('Appointment', () => <Appointment />)
-	.add('Appointment with Time', () => <Appointment time={appointments.time} />)
+	.add('Header', () => <Appointment time={appointments.time} />)
 	//empty
-	.add('Appointment - Empty', () => <Appointment mode="EMPTY" onAdd={action('addAppointment')} />)
+	.add('Empty', () => <Appointment mode="EMPTY" onAdd={action('addAppointment')} />)
 	//show
-	.add('Appointment - Show', () => (
+	.add('Show', () => (
 		<Appointment
 			mode="SHOW"
-			student={appointments.student}
-			interviewer={appointments.interviewer}
+			interview={appointments}
 			onEdit={action('editAppointment')}
 			onDelete={action('deleteAppointment')}
 		/>
 	))
-	.add('Appointment - Confirm', () => (
+	.add('Confirm', () => (
 		<Appointment
 			mode="CONFIRM"
 			message="Delete the appointment?"
 			onConfirm={action('confirm')}
 			onCancel={action('cancel')}
 		/>
+	))
+	.add('Status', () => <Appointment mode="STATUS" message="Deleting" />)
+	.add('Error Saving', () => (
+		<Appointment mode="ERROR" message="Could not save appointment." onClose={action('error')} />
+	))
+	.add('Error Deleting', () => (
+		<Appointment mode="ERROR" message="Could not delete appointment." onClose={action('error')} />
+	))
+	.add('Create', () => (
+		<Appointment mode="CREATE" interviewers={interviewers} onSave={action('onSave')} onCancel={action('onCancel')} />
+	))
+	.add('Edit', () => (
+		<Appointment
+			mode="EDIT"
+			name="Tyler Caceres"
+			interviewers={interviewers}
+			interviewer={3}
+			onSave={action('onSave')}
+			onCancel={action('onCancel')}
+		/>
+	))
+	.add('Appointment Empty', () => (
+		<>
+			<Appointment mode="EMPTY" id={1} time="12pm" />
+			<Appointment mode="EMPTY" id="last" time="1pm" />
+		</>
+	))
+	.add('Appointment Booked', () => (
+		<>
+			<Appointment mode="SHOW" id={1} time="12pm" interview={{student: 'Lydia Miller-Jones', interviewer}} />
+			<Appointment mode="SHOW" id="last" time="1pm" />
+		</>
 	));
-
-// .add('No Appointments', () => <Appointment onAdd={action('addAppointment')} />);
