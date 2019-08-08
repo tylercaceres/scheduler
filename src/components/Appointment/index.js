@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles.scss';
 
 import Header from './Header';
@@ -11,6 +11,7 @@ import Form from './Form';
 
 const Appointment = (props) => {
 	// const [mode, setMode] = useState('EMPTY');
+
 	return (
 		<article>
 			<Header time={props.time} />
