@@ -9,8 +9,18 @@ import Status from './Status';
 import Error from './Error';
 import Form from './Form';
 
+const useVisualMode = require('hooks/useVisualMode');
+
 const Appointment = (props) => {
-	// const [mode, setMode] = useState('EMPTY');
+	const EMPTY = 'EMPTY';
+	const SHOW = 'SHOW';
+	const CONFIRM = 'CONFIRM';
+	const STATUS = 'STATUS';
+	const ERROR = 'ERROR';
+	const CREATE = 'CREATE';
+	const EDIT = 'EDIT';
+
+	const [mode, setMode] = useVisualMode(EMPTY);
 
 	return (
 		<article>
