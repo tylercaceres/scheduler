@@ -10,6 +10,7 @@ const Form = (props) => {
 	const reset = () => {
 		setStudentName('');
 		setInterviewerId(null);
+		props.onCancel();
 	};
 	return (
 		<main className="appointment__card appointment__card--create">

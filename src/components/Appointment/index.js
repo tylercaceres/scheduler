@@ -10,6 +10,7 @@ import Error from './Error';
 import Form from './Form';
 
 import useVisualMode from 'hooks/useVisualMode';
+// import {getInterviewersForDay} from '/helpers/selectors';
 
 const Appointment = (props) => {
 	const EMPTY = 'EMPTY';
@@ -47,7 +48,7 @@ const Appointment = (props) => {
 			{mode === 'CONFIRM' && <Confirm message={props.message} onConfirm={props.onConfirm} onCancel={props.onCancel} />}
 			{mode === 'STATUS' && <Status message={props.message} />}
 			{mode === 'ERROR' && <Error message={props.message} onClose={props.onClose} />}
-			{mode === 'CREATE' && <Form interviewers={[]} onSave={props.onSave} onCancel={props.onCancel} />}
+			{mode === 'CREATE' && <Form interviewers={[]} onSave={props.onSave} onCancel={back} />}
 			{/* {mode === 'CREATE' && <Form interviewers={props.interviewers} onSave={props.onSave} onCancel={props.onCancel} />} */}
 			{mode === 'EDIT' && (
 				<Form
