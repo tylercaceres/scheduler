@@ -25,4 +25,5 @@ const useVisualMode = (initial) => {
 	};
 };
 
-module.exports = useVisualMode;
+// module.exports = {useVisualMode};
+export default useVisualMode;

@@ -9,7 +9,7 @@ import Status from './Status';
 import Error from './Error';
 import Form from './Form';
 
-const useVisualMode = require('hooks/useVisualMode');
+import useVisualMode from 'hooks/useVisualMode';
 
 const Appointment = (props) => {
 	const EMPTY = 'EMPTY';
@@ -20,13 +20,22 @@ const Appointment = (props) => {
 	const CREATE = 'CREATE';
 	const EDIT = 'EDIT';
 
-	const [mode, setMode] = useVisualMode(EMPTY);
+	const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
+
+	// useEffect(() => {
+	// 	if (props.interview && mode === EMPTY) {
+	// 		transition(SHOW);
+	// 	}
+	// 	if (props.interview === null && mode === SHOW) {
+	// 		transition(EMPTY);
+	// 	}
+	// }, [props.interview, mode, transition]);
 
 	return (
 		<article>
 			<Header time={props.time} />
-			{props.mode === 'EMPTY' && <Empty onAdd={props.onAdd} />}
-			{props.mode === 'SHOW' && props.interview && (
+			{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+			{mode === 'SHOW' && props.interview && (
 				<Show
 					student={props.interview.student}
 					interviewer={props.interview.interviewer}
@@ -34,15 +43,13 @@ const Appointment = (props) => {
 					onDelete={props.onDelete}
 				/>
 			)}
-			{props.mode === 'CONFIRM' && (
-				<Confirm message={props.message} onConfirm={props.onConfirm} onCancel={props.onCancel} />
-			)}
-			{props.mode === 'STATUS' && <Status message={props.message} />}
-			{props.mode === 'ERROR' && <Error message={props.message} onClose={props.onClose} />}
-			{props.mode === 'CREATE' && (
-				<Form interviewers={props.interviewers} onSave={props.onSave} onCancel={props.onCancel} />
-			)}
-			{props.mode === 'EDIT' && (
+			{console.log('propssssss:', props)}
+			{mode === 'CONFIRM' && <Confirm message={props.message} onConfirm={props.onConfirm} onCancel={props.onCancel} />}
+			{mode === 'STATUS' && <Status message={props.message} />}
+			{mode === 'ERROR' && <Error message={props.message} onClose={props.onClose} />}
+			{mode === 'CREATE' && <Form interviewers={[]} onSave={props.onSave} onCancel={props.onCancel} />}
+			{/* {mode === 'CREATE' && <Form interviewers={props.interviewers} onSave={props.onSave} onCancel={props.onCancel} />} */}
+			{mode === 'EDIT' && (
 				<Form
 					name="The God One"
 					interviewers={props.interviewers}
