@@ -6,7 +6,7 @@ const Form = (props) => {
 	console.log(props);
 	const [studentName, setStudentName] = useState(props.name || '');
 	const [interviewerId, setInterviewerId] = useState(props.interviewer || null);
-
+	console.log('PROPS HERE AHHHHHHHHHHHH STATE DAY', props);
 	const reset = () => {
 		setStudentName('');
 		setInterviewerId(null);

@@ -23,14 +23,10 @@ export const getInterview = (state, interview) => {
 export const getInterviewersForDay = (state, day) => {
 	const stateDays = state.days.find((stateDay) => stateDay.name === day);
 	if (stateDays) {
-		if (stateDays.appointments) {
-			const appointments = stateDays.appointments.map((appt) => {
-				return state.appointments[appt];
+		if (stateDays.interviewers) {
+			return stateDays.interviewers.map((interview) => {
+				return state.interviewers[interview];
 			});
-			return appointments
-				.filter((appt) => appt.interview !== null)
-				.map((appt) => appt.interview.interviewer)
-				.map((interviewer) => state.interviewers[interviewer]);
 		}
 	} else {
 		return [];
