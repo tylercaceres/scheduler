@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './styles.scss';
 
 import Header from './Header';
@@ -25,13 +25,6 @@ const Appointment = (props) => {
 
 	const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
-	//pass this to the form component. We pass this function to the Form component. The Form captures the name and interviewer and passes them to props.onSave as arguments
-	const save = (name, interviewer) => {
-		console.log('name:', name);
-		console.log('interviewer:', interviewer);
-	};
-	console.log('PROPS ON FORM:', props);
-
 	function generateInterview(name, interviewer) {
 		const interview = {
 			student: name,
@@ -39,15 +32,6 @@ const Appointment = (props) => {
 		};
 		return interview;
 	}
-	// useEffect(() => {
-	// 	if (props.interview && mode === EMPTY) {
-	// 		transition(SHOW);
-	// 	}
-	// 	if (props.interview === null && mode === SHOW) {
-	// 		transition(EMPTY);
-	// 	}
-	// }, [props.interview, mode, transition]);
-	console.log('PROPS TO DETERMINE INTERVIEWER NAME', props);
 
 	return (
 		<article>
@@ -66,7 +50,6 @@ const Appointment = (props) => {
 					}}
 				/>
 			)}
-			{console.log('propssssss:', props)}
 			{mode === CONFIRM && (
 				<Confirm
 					message="Are you sure you want to delete this?"
@@ -89,8 +72,6 @@ const Appointment = (props) => {
 				<Form
 					interviewers={props.interviewers}
 					onSave={(name, interviewer) => {
-						console.log('I AM HERE NAME', name);
-						console.log('I AM HERE INTERVIEWER', interviewer);
 						transition(SAVING);
 						props
 							.bookInterview(props.id, generateInterview(name, interviewer))
@@ -105,10 +86,7 @@ const Appointment = (props) => {
 					name={props.interview.student}
 					interviewer={props.interview.interviewer}
 					interviewers={props.interviewers}
-					// interviewer={props.interviewer}
 					onSave={(name, interviewer) => {
-						console.log('I AM HERE NAME', name);
-						console.log('I AM HERE INTERVIEWER', interviewer);
 						props
 							.bookInterview(props.id, generateInterview(name, interviewer))
 							.then(() => transition(SHOW))

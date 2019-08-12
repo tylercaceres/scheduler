@@ -8,7 +8,6 @@ import React from 'react';
 // onDelete:Function to be called when the user clicks the Delete button
 
 const Show = (props) => {
-	console.log('TRYING TO FIND OUT WHY NAME IS NOT SHOWING UP', props);
 	return (
 		<main className="appointment__card appointment__card--show">
 			<section className="appointment__card-left">
