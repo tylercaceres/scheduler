@@ -42,9 +42,12 @@ export default function useApplicationData() {
 
 	useEffect(() => {
 		Promise.all([
-			axios.get(`http://localhost:3001/api/days`),
-			axios.get(`http://localhost:3001/api/appointments`),
-			axios.get(`http://localhost:3001/api/interviewers`)
+			// axios.get(`http://localhost:3001/api/days`),
+			// axios.get(`http://localhost:3001/api/appointments`),
+			// axios.get(`http://localhost:3001/api/interviewers`)
+			axios.get(`/api/days`),
+			axios.get(`/api/appointments`),
+			axios.get(`/api/interviewers`)
 		])
 			.then((response) => {
 				dispatch({
@@ -55,11 +58,12 @@ export default function useApplicationData() {
 				});
 			})
 			.catch((err) => console.warn('Error message :', err));
-	}, [state]);
+	}, []);
 
 	const bookInterview = (id, interview) => {
 		return axios.put(`http://localhost:3001/api/appointments/${id}`, {interview}).then((res) => {
 			dispatch({type: SET_INTERVIEW, id, interview});
+			console.log('DISPATCH MESSAG FROM BOOKINTERVIEW:', state, interview, id);
 			return res;
 		});
 	};

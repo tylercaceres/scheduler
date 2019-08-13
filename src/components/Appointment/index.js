@@ -60,7 +60,7 @@ const Appointment = (props) => {
 							.then(() => transition(EMPTY))
 							.catch(() => transition(ERROR_DELETE, true));
 					}}
-					onCancel={props.onCancel}
+					onCancel={() => transition(SHOW, true)}
 				/>
 			)}
 			{mode === DELETING && <Status message="Deleting..." />}
@@ -90,7 +90,7 @@ const Appointment = (props) => {
 						props
 							.bookInterview(props.id, generateInterview(name, interviewer))
 							.then(() => transition(SHOW))
-							.catch(() => transition(ERROR_SAVE));
+							.catch(() => transition(ERROR_SAVE, true));
 					}}
 					onCancel={back}
 				/>

@@ -256,13 +256,16 @@ test('getAppointmentsForDay returns an array', () => {
 
 test('getAppointmentsForDay returns an array with a length matching the number of appointments for that day', () => {
 	const result = getAppointmentsForDay(state, 'Monday');
-	expect(result.length).toEqual(3);
+	expect(result.length).toEqual(5);
 });
 
 test('getAppointmentsForDay returns an array containing the correct appointment objects', () => {
-	const [first, second] = getAppointmentsForDay(state, 'Tuesday');
-	expect(first).toEqual(state.appointments['4']);
-	expect(second).toEqual(state.appointments['5']);
+	const [first, second, third, fourth, fifth] = getAppointmentsForDay(state, 'Tuesday');
+	expect(first).toEqual(state.appointments['6']);
+	expect(second).toEqual(state.appointments['7']);
+	expect(third).toEqual(state.appointments['8']);
+	expect(fourth).toEqual(state.appointments['9']);
+	expect(fifth).toEqual(state.appointments['10']);
 });
 
 test('getAppointmentsForDay returns an empty array when the days data is empty', () => {
@@ -271,7 +274,7 @@ test('getAppointmentsForDay returns an empty array when the days data is empty',
 });
 
 test('getAppointmentsForDay returns an empty array when the day is not found', () => {
-	const result = getAppointmentsForDay(state, 'Wednesday');
+	const result = getAppointmentsForDay(state, 'Saturday');
 	expect(result.length).toEqual(0);
 });
 
@@ -284,7 +287,7 @@ test('getInterviewersForDay returns an array', () => {
 
 test('getInterviewersForDay returns an array with a length matching the number of interviewers for that day', () => {
 	const result = getInterviewersForDay(state, 'Monday');
-	expect(result.length).toEqual(1);
+	expect(result.length).toEqual(5);
 });
 
 test('getInterviewersForDay returns an array containing the correct interviewer objects', () => {
@@ -298,7 +301,7 @@ test('getInterviewersForDay returns an empty array when the days data is empty',
 });
 
 test('getInterviewersForDay returns an empty array when the day is not found', () => {
-	const result = getInterviewersForDay(state, 'Wednesday');
+	const result = getInterviewersForDay(state, 'Saturday');
 	expect(result.length).toEqual(0);
 });
 
@@ -319,6 +322,6 @@ test('getInterview returns an object with the interviewer data', () => {
 });
 
 test('getInterview returns null if no interview is booked', () => {
-	const result = getInterview(state, state.appointments['2'].interview);
+	const result = getInterview(state, state.appointments['24'].interview);
 	expect(result).toBeNull();
 });
