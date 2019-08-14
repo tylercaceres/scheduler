@@ -13,17 +13,17 @@ export default function useApplicationData() {
 			case SET_DAY:
 				return {...state, day};
 			case SET_APPLICATION_DATA:
-				return {...state, days, appointments, interviewers};
+				return {...state, days, appointments, interviewers, trigger: false};
 			case SET_INTERVIEW: {
 				const appointment = {
 					...state.appointments[id],
-					interview: {interview}
+					interview: {...interview}
 				};
 				const appointments = {
 					...state.appointments,
 					[id]: appointment
 				};
-				return {...state, appointments};
+				return {...state, appointments, trigger: true};
 			}
 			default:
 				throw new Error(`Tried to reduce with unsupported action type: ${type}`);
@@ -35,20 +35,14 @@ export default function useApplicationData() {
 		day: 'Monday',
 		days: [],
 		appointments: {},
-		interviewers: {}
+		interviewers: {},
+		trigger: false
 	});
 
 	const setDay = (day) => dispatch({type: SET_DAY, day});
 
 	useEffect(() => {
-		Promise.all([
-			// axios.get(`http://localhost:3001/api/days`),
-			// axios.get(`http://localhost:3001/api/appointments`),
-			// axios.get(`http://localhost:3001/api/interviewers`)
-			axios.get(`/api/days`),
-			axios.get(`/api/appointments`),
-			axios.get(`/api/interviewers`)
-		])
+		Promise.all([axios.get(`/api/days`), axios.get(`/api/appointments`), axios.get(`/api/interviewers`)])
 			.then((response) => {
 				dispatch({
 					type: SET_APPLICATION_DATA,
@@ -58,21 +52,26 @@ export default function useApplicationData() {
 				});
 			})
 			.catch((err) => console.warn('Error message :', err));
-	}, []);
+	}, [state.trigger]);
 
 	const bookInterview = (id, interview) => {
-		return axios.put(`http://localhost:3001/api/appointments/${id}`, {interview}).then((res) => {
-			dispatch({type: SET_INTERVIEW, id, interview});
-			console.log('DISPATCH MESSAG FROM BOOKINTERVIEW:', state, interview, id);
-			return res;
-		});
+		return axios
+			.put(`/api/appointments/${id}`, {interview})
+			.then((res) => {
+				dispatch({type: SET_INTERVIEW, id, interview});
+				return res;
+			})
+			.catch((err) => console.warn(err));
 	};
 
 	const deleteInterview = (id, interview) => {
-		return axios.delete(`http://localhost:3001/api/appointments/${id}`, {interview}).then((res) => {
-			dispatch({type: SET_INTERVIEW, id, interview: null});
-			return res;
-		});
+		return axios
+			.delete(`/api/appointments/${id}`, {interview})
+			.then((res) => {
+				dispatch({type: SET_INTERVIEW, id, interview: null});
+				return res;
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return {

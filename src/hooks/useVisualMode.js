@@ -3,9 +3,10 @@ import {useState} from 'react';
 const useVisualMode = (initial) => {
 	const [mode, setMode] = useState(initial);
 	const [history, setHistory] = useState([]);
+	//can use stacks here instead of using arrays
 
 	return {
-		mode: mode,
+		mode,
 		transition: (newVal, replace) => {
 			if (replace) {
 				setHistory([...history]);
@@ -18,8 +19,8 @@ const useVisualMode = (initial) => {
 			if (history.length === 0) {
 				return;
 			}
-			const [newMode, ...newHistory] = history;
-			setHistory(newHistory);
+			const [newMode, ...restHistory] = history;
+			setHistory(restHistory);
 			setMode(newMode);
 		}
 	};

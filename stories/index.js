@@ -137,10 +137,10 @@ storiesOf('Appointment', module)
 	))
 	.add('Status', () => <Appointment mode="STATUS" message="Deleting" />)
 	.add('Error Saving', () => (
-		<Appointment mode="ERROR" message="Could not save appointment." onClose={action('error')} />
+		<Appointment mode="ERROR_SAVE" message="Could not save appointment." onClose={action('error')} />
 	))
 	.add('Error Deleting', () => (
-		<Appointment mode="ERROR" message="Could not delete appointment." onClose={action('error')} />
+		<Appointment mode="ERROR_DELETE" message="Could not delete appointment." onClose={action('error')} />
 	))
 	.add('Create', () => (
 		<Appointment mode="CREATE" interviewers={interviewers} onSave={action('onSave')} onCancel={action('onCancel')} />
@@ -163,7 +163,7 @@ storiesOf('Appointment', module)
 	))
 	.add('Appointment Booked', () => (
 		<>
-			<Appointment mode="SHOW" id={1} time="12pm" interview={{student: 'Lydia Miller-Jones', interviewer}} />
+			<Appointment mode="SHOW" id={1} time="12pm" interviewer={{student: 'Lydia Miller-Jones', interviewer}} />
 			<Appointment mode="SHOW" id="last" time="1pm" />
 		</>
 	));

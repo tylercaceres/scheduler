@@ -34,7 +34,7 @@ const Appointment = (props) => {
 	}
 
 	return (
-		<article>
+		<article data-testid="appointment">
 			<Header time={props.time} />
 			{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 			{mode === SHOW && props.interview && (
@@ -81,7 +81,7 @@ const Appointment = (props) => {
 					onCancel={back}
 				/>
 			)}
-			{mode === 'EDIT' && (
+			{mode === EDIT && (
 				<Form
 					name={props.interview.student}
 					interviewer={props.interview.interviewer}
