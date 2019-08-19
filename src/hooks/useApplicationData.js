@@ -61,7 +61,7 @@ export default function useApplicationData() {
 				dispatch({type: SET_INTERVIEW, id, interview});
 				return res;
 			})
-			.catch((err) => console.warn(err));
+			// .catch((err) => console.warn(err));
 	};
 
 	const deleteInterview = (id, interview) => {
@@ -71,7 +71,7 @@ export default function useApplicationData() {
 				dispatch({type: SET_INTERVIEW, id, interview: null});
 				return res;
 			})
-			.catch((err) => console.log(err));
+			// .catch((err) => console.log(err));
 	};
 
 	return {
